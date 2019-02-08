@@ -1,7 +1,7 @@
 import { Component, ComponentFactory, ComponentFactoryResolver, Injector, ComponentRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { SampleChildComponent } from '../sample-child/sample-child.component';
-import { Observable, interval, ConnectableObservable } from 'rxjs';
-import { publish, count, publishReplay } from "rxjs/operators";
+import { interval, Observable } from 'rxjs';
+import { refCount, publish } from "rxjs/operators";
 
 @Component({
     selector: 'app-sample-parent',
@@ -17,10 +17,13 @@ export class SampleParentComponent {
     ) {
         this.factory = factoryResolver.resolveComponentFactory(SampleChildComponent);
 
-        this.connected = interval(500).pipe(publishReplay()) as ConnectableObservable<number>;
+        this.connected = interval(500).pipe(
+            publish(),
+            refCount()
+            );
     }
 
-    private connected: ConnectableObservable<number>;
+    private connected: Observable<number>;
 
     @ViewChild('childContainer', { read: ViewContainerRef })
     entry: ViewContainerRef;
@@ -32,8 +35,6 @@ export class SampleParentComponent {
         this.children.push(child);
 
         child.instance.ticks = this.connected;
-
-        this.connected.connect();
     }
 
     public removeChild() {
