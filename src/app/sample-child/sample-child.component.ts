@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-sample-child',
-  templateUrl: './sample-child.component.html',
-  styleUrls: ['./sample-child.component.scss']
+    selector: 'app-sample-child',
+    templateUrl: './sample-child.component.html',
+    styleUrls: ['./sample-child.component.scss']
 })
-export class SampleChildComponent implements OnInit {
+export class SampleChildComponent {
 
-  constructor() { }
+    private _ticks: Observable<number>
 
-  ngOnInit() {
-  }
+    public get ticks(): Observable<number> {
+        return this._ticks;
+    }
+
+    public set ticks(value: Observable<number>){
+        this._ticks = value;
+
+        this._ticks.subscribe(value => this.tick = value)
+    }
+
+    public tick: number;
 
 }
