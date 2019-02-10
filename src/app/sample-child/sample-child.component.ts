@@ -1,32 +1,42 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable, Subscription, Subject } from 'rxjs';
+import { OnDestroyMixin } from '../mixin/on-destroy-mixin';
+import { Mixin } from '../decorators/mixin';
 
 @Component({
     selector: 'app-sample-child',
     templateUrl: './sample-child.component.html',
     styleUrls: ['./sample-child.component.scss']
 })
-export class SampleChildComponent implements OnDestroy {
+@Mixin([OnDestroyMixin])
+export class SampleChildComponent {
 
-    private subscription: Subscription;
+    public readonly destroyStream!: Subject<boolean>;
 
-    private _ticks: Observable<number>
+    private _ticks: Observable<number> | undefined;
 
-    public get ticks(): Observable<number> {
-        return this._ticks;
-    }
+    private subscription: Subscription | undefined;
 
-    public set ticks(value: Observable<number>){
+    public set ticks(value: Observable<number>) {
         this._ticks = value;
 
-        this.subscription = this._ticks.subscribe(value => this.tick = value)
+        this.subscription = this._ticks.subscribe(value => this.tick = value);
+
+        this.destroyStream.subscribe(() => {
+            if(this.subscription != null){
+                this.subscription.unsubscribe();
+                this.subscription = undefined;
+            }
+        })
     }
 
-    public tick: number;
+    public ngOnDestroy(): void {
+        console.log(`on destroy from child`);
 
-    public ngOnDestroy(){
-        console.log(`destroy child`)
-        this.subscription.unsubscribe();
+        if(this.subscription){
+            this.subscription.unsubscribe();
+        }
     }
 
+    public tick: number = 0;
 }
