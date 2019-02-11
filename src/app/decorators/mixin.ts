@@ -16,7 +16,8 @@ export function Mixin(baseCtors: Function[]) {
                     const baseValue = baseCtor.prototype[name];
 
                     if(typeof originalValue === "function" && typeof baseValue === "function"){
-                        derivedCtor.prototype[name] = (...params: any[]) => {
+
+                        derivedCtor.prototype[name] = function(this: any, ...params: any[]){
                             originalValue.apply(this, ...params);
                             baseValue.apply(this, ...params);
                         }
