@@ -30,12 +30,11 @@ export class SampleChildComponent {
         })
     }
 
-    public ngOnDestroy(): void {
-        console.log(`on destroy from child`);
+    public name = "sampleChild";
 
-        if(this.subscription){
-            this.subscription.unsubscribe();
-        }
+    public ngOnDestroy(): void {
+        console.log(`on destroy from child ${this.name}`);
+
     }
 
     public tick: number = 0;

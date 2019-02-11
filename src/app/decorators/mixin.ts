@@ -12,7 +12,18 @@ export function Mixin(baseCtors: Function[]) {
                 if (descriptor && (!descriptor.writable || !descriptor.configurable || !descriptor.enumerable || descriptor.get || descriptor.set)) {
                     Object.defineProperty(derivedCtor.prototype, name, descriptor);
                 } else {
-                    derivedCtor.prototype[name] = baseCtor.prototype[name];
+                    const originalValue = derivedCtor.prototype[name];
+                    const baseValue = baseCtor.prototype[name];
+
+                    if(typeof originalValue === "function" && typeof baseValue === "function"){
+
+                        derivedCtor.prototype[name] = function(this: any, ...params: any[]){
+                            originalValue.apply(this, ...params);
+                            baseValue.apply(this, ...params);
+                        }
+                    } else {
+                        derivedCtor.prototype[name] = baseCtor.prototype[name];
+                    }
                 }
 
             });
