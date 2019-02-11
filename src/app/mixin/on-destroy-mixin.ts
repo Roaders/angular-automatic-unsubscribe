@@ -13,6 +13,8 @@ export class OnDestroyMixin implements OnDestroy {
         return this._destroyStream;
     }
 
+    public name = "onDestroyMixin";
+
     public ngOnDestroy(): void {
         this.destroyStream.next();
         this.destroyStream.complete();
