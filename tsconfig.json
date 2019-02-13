@@ -2,9 +2,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist/",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -17,6 +17,7 @@
     "lib": [
       "es2018",
       "dom"
-    ]
-  }
+    ],
+  },
+  "include": ["src/**/*.*"]
 }

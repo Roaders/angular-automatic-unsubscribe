@@ -1,7 +1,7 @@
-import { OnDestroy } from '@angular/core';
+
 import { Subject } from 'rxjs';
 
-export class OnDestroyMixin implements OnDestroy {
+export class OnDestroyMixin {
 
     public sampleProp = 'Hello from mixin';
 
@@ -15,6 +15,7 @@ export class OnDestroyMixin implements OnDestroy {
         return this._destroyStream;
     }
 
+    // tslint:disable-next-line: use-life-cycle-interface
     public ngOnDestroy(): void {
         console.log(`on destroy from mixin`);
 
