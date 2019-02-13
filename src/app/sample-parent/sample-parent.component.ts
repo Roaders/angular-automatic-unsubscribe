@@ -1,12 +1,7 @@
-import { Component, ComponentFactory, ComponentFactoryResolver, Injector, ComponentRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { SampleChildComponent } from '../sample-child/sample-child.component';
-import { interval, Observable, defer } from 'rxjs';
+import { interval, Observable } from 'rxjs';
 import { refCount, publish } from "rxjs/operators";
-
-
-function instrument<T>(source: Observable<T>) {
-    return ;
-}
 
 @Component({
     selector: 'app-sample-parent',

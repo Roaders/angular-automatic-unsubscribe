@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { OnDestroyMixin } from '../mixin/on-destroy-mixin';
 import { Mixin } from '../decorators/mixin';
+import { unsubscribe } from "../operators/unsubscribe";
 
 @Component({
     selector: 'app-sample-child',
@@ -13,27 +14,21 @@ export class SampleChildComponent {
 
     public readonly destroyStream!: Subject<boolean>;
 
-    private _ticks: Observable<number> | undefined;
-
-    private subscription: Subscription | undefined;
-
     public set ticks(value: Observable<number>) {
-        this._ticks = value;
-
-        this.subscription = this._ticks.subscribe(value => this.tick = value);
-
-        this.destroyStream.subscribe(() => {
-            if(this.subscription != null){
-                this.subscription.unsubscribe();
-                this.subscription = undefined;
-            }
-        })
+        value.pipe(
+            unsubscribe(this.destroyStream),
+        )
+        .subscribe(
+            tickValue => this.tick = tickValue, 
+            undefined, 
+            () => console.log(`child complete`)
+        );
     }
 
     public name = "sampleChild";
 
     public ngOnDestroy(): void {
-        console.log(`on destroy from child ${this.name}`);
+        console.log(`on destroy from child '${this.name}' (<- testing 'this')`);
 
     }
 
