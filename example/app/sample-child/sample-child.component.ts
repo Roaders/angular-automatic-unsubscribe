@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { Observable, Subscription, Subject } from 'rxjs';
-import { OnDestroyMixin } from '../mixin/on-destroy-mixin';
-import { Mixin } from '../decorators/mixin';
-import { unsubscribe } from "../operators/unsubscribe";
+import { Observable, Subject } from 'rxjs';
+import { OnDestroyMixin, Mixin, unsubscribe } from '../../../src';
 
 @Component({
     selector: 'app-sample-child',
