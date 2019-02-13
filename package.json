@@ -10,6 +10,8 @@
         "watch-test": "ng test --watch",
         "lint": "ng lint"
     },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "private": true,
     "peerDependencies": {
         "rxjs": "6.x"
