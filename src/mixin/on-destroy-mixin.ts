@@ -1,14 +1,14 @@
-import { OnDestroy } from "@angular/core";
-import { Subject } from "rxjs";
+import { OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export class OnDestroyMixin implements OnDestroy {
 
-    public sampleProp = "Hello from mixin";
+    public sampleProp = 'Hello from mixin';
 
     private _destroyStream!: Subject<boolean>;
 
-    public get destroyStream(): Subject<boolean>{
-        if(this._destroyStream == null){
+    public get destroyStream(): Subject<boolean> {
+        if (this._destroyStream == null) {
             this._destroyStream = new Subject<boolean>();
         }
 

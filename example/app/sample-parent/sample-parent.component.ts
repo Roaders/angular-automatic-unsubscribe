@@ -1,7 +1,7 @@
 import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { SampleChildComponent } from '../sample-child/sample-child.component';
 import { interval, Observable } from 'rxjs';
-import { refCount, publish } from "rxjs/operators";
+import { refCount, publish } from 'rxjs/operators';
 
 @Component({
     selector: 'app-sample-parent',
@@ -18,7 +18,7 @@ export class SampleParentComponent {
         this.factory = factoryResolver.resolveComponentFactory(SampleChildComponent);
 
         this.ticks = new Observable<number>(observer => {
-            console.log("subscribing");
+            console.log('subscribing');
             this.subscribed = true;
             const subscription = interval(500)
                 .subscribe(observer);
@@ -26,7 +26,7 @@ export class SampleParentComponent {
             return () => {
                 this.subscribed = false;
                 subscription.unsubscribe();
-                console.log("unsubscribed");
+                console.log('unsubscribed');
             };
         }).pipe(
             publish(),
@@ -36,7 +36,7 @@ export class SampleParentComponent {
 
     public subscribed = false;
 
-    private ticks: Observable<number>
+    private ticks: Observable<number>;
 
     @ViewChild('childContainer', { read: ViewContainerRef })
     entry!: ViewContainerRef;

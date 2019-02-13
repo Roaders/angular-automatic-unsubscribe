@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { OnDestroyMixin, Mixin, unsubscribe } from '../../../src';
 
@@ -8,27 +8,26 @@ import { OnDestroyMixin, Mixin, unsubscribe } from '../../../src';
     styleUrls: ['./sample-child.component.scss']
 })
 @Mixin([OnDestroyMixin])
-export class SampleChildComponent {
-
-    public readonly destroyStream!: Subject<boolean>;
+export class SampleChildComponent implements OnDestroy {
 
     public set ticks(value: Observable<number>) {
         value.pipe(
             unsubscribe(this.destroyStream),
         )
         .subscribe(
-            tickValue => this.tick = tickValue, 
-            undefined, 
+            tickValue => this.tick = tickValue,
+            undefined,
             () => console.log(`child complete`)
         );
     }
 
-    public name = "sampleChild";
+    public readonly destroyStream!: Subject<boolean>;
+
+    public name = 'sampleChild';
+
+    public tick = 0;
 
     public ngOnDestroy(): void {
         console.log(`on destroy from child '${this.name}' (<- testing 'this')`);
-
     }
-
-    public tick: number = 0;
 }
