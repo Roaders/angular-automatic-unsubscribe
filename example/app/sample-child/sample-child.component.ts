@@ -1,14 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { OnDestroyMixin, Mixin, unsubscribe } from '../../../src';
+import { ApplyDestroyMixin, unsubscribe } from '../../../src';
 
 @Component({
     selector: 'app-sample-child',
     templateUrl: './sample-child.component.html',
     styleUrls: ['./sample-child.component.scss']
 })
-@Mixin([OnDestroyMixin])
-export class SampleChildComponent implements OnDestroy {
+class SampleChildSuper implements OnDestroy {
 
     public set ticks(value: Observable<number>) {
         value.pipe(
@@ -31,3 +30,5 @@ export class SampleChildComponent implements OnDestroy {
         console.log(`on destroy from child '${this.name}' (<- testing 'this')`);
     }
 }
+
+export class SampleChildComponent extends ApplyDestroyMixin(SampleChildSuper) {}
