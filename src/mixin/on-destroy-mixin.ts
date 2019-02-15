@@ -1,17 +1,24 @@
 
 import { Subject } from 'rxjs';
+import { OnDestroy } from '@angular/core';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export function ApplyDestroyMixin<TBase extends Constructor>(Base: TBase) {
-    return class extends Base {
+interface OptionalDestroy {
+    ngOnDestroy?(): void;
+}
+
+export function ApplyDestroyMixin<TBase extends Constructor<OptionalDestroy>>(Base: TBase) {
+    return class extends Base implements OnDestroy {
 
         public readonly destroyStream = new Subject<boolean>();
 
         public ngOnDestroy(): void {
-            console.log(`on destroy from mixin`);
+            if (super.ngOnDestroy != null) {
+                super.ngOnDestroy();
+            }
 
-            this.destroyStream.next();
+            this.destroyStream.next(true);
             this.destroyStream.complete();
         }
     };

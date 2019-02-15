@@ -14,7 +14,8 @@
     "types": "dist/index.d.ts",
     "private": true,
     "peerDependencies": {
-        "rxjs": "6.x"
+        "rxjs": "6.x",
+        "@angular/core": "*"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "~0.10.0",

@@ -82,10 +82,10 @@ describe('unsubscribe operator', () => {
         it('should unsubscribe from the source observable', () => {
             let sourceUnsubscribed = false;
 
-            Observable.create((observer: Observable<string>) => {
+            new Observable<string>(observer => {
                 return () => {
                     sourceUnsubscribed = true;
-                    return observer.subscribe(source);
+                    return source.subscribe(observer);
                 };
             }).pipe(
                 unsubscribe(unsubscribeSource),

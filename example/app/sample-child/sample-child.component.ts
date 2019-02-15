@@ -15,7 +15,7 @@ class SampleChild implements OnDestroy {
         );
     }
 
-    public readonly destroyStream!: Subject<boolean>;
+    public readonly destroyStream!: Observable<boolean>;
 
     public name = 'sampleChild';
 
