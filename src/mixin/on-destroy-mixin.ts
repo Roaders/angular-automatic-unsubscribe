@@ -1,25 +1,18 @@
 
 import { Subject } from 'rxjs';
 
-export class OnDestroyMixin {
+type Constructor<T = {}> = new (...args: any[]) => T;
 
-    public sampleProp = 'Hello from mixin';
+export function ApplyDestroyMixin<TBase extends Constructor>(Base: TBase) {
+    return class extends Base {
 
-    private _destroyStream!: Subject<boolean>;
+        public readonly destroyStream = new Subject<boolean>();
 
-    public get destroyStream(): Subject<boolean> {
-        if (this._destroyStream == null) {
-            this._destroyStream = new Subject<boolean>();
+        public ngOnDestroy(): void {
+            console.log(`on destroy from mixin`);
+
+            this.destroyStream.next();
+            this.destroyStream.complete();
         }
-
-        return this._destroyStream;
-    }
-
-    // tslint:disable-next-line: use-life-cycle-interface
-    public ngOnDestroy(): void {
-        console.log(`on destroy from mixin`);
-
-        this.destroyStream.next();
-        this.destroyStream.complete();
-    }
+    };
 }
