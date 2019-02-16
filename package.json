@@ -6,7 +6,7 @@
         "start": "ng serve --open",
         "build": "tsc",
         "watch-build": "tsc --watch",
-        "test": "ng test",
+        "test": "ng test --browsers=ChromeHeadless",
         "watch-test": "ng test --watch",
         "lint": "ng lint"
     },
