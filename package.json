@@ -1,5 +1,6 @@
 {
-    "name": "automatic-unsubscribe",
+    "name": "angular-rxjs-automatic-unsubscribe",
+    "description": "An angular component mixin and a pipe operator to automatically unsubscribe when your component is destroyed. Written in Typescript.",
     "version": "1.0.0",
     "scripts": {
         "clean": "rimraf dist",
@@ -7,8 +8,12 @@
         "build": "tsc",
         "watch-build": "tsc --watch",
         "test": "ng test --browsers=ChromeHeadless",
+        "posttest": "npm run lint",
         "watch-test": "ng test --watch",
-        "lint": "ng lint"
+        "lint": "ng lint",
+        "prebuild-release": "npm run clean && npm test",
+        "build-release": "npm run build",
+        "prepublishOnly": "npm run build-release"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
