@@ -1,7 +1,7 @@
 {
     "name": "angular-rxjs-automatic-unsubscribe",
     "description": "An angular component mixin and a pipe operator to automatically unsubscribe when your component is destroyed. Written in Typescript.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scripts": {
         "clean": "rimraf dist",
         "start": "ng serve --open",
