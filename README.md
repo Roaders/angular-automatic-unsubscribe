@@ -1,5 +1,7 @@
 # angular-rxjs-automatic-unsubscribe
 
+[![Build Status](https://travis-ci.com/Roaders/angular-automatic-unsubscribe.svg?branch=master)](https://travis-ci.com/Roaders/angular-automatic-unsubscribe)
+
 A utility package to automatically unsubscribe from rxjs streams when an angular component is disposed of.
 
 ## Features
