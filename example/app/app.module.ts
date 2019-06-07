@@ -2,20 +2,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ComponentRef, ComponentFactory, Injector, ComponentFactoryResolver } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { SampleChildComponent } from './sample-child/sample-child.component';
+import { SampleChildOneComponent } from './sample-child-one/sample-child-one.component';
+import { SampleChildTwoComponent } from './sample-child-two/sample-child-two.component';
 import { SampleParentComponent } from './sample-parent/sample-parent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SampleChildComponent,
+    SampleChildOneComponent,
+    SampleChildTwoComponent,
     SampleParentComponent
   ],
   imports: [
     BrowserModule
   ],
   entryComponents: [
-      SampleChildComponent
+    SampleChildOneComponent,
+    SampleChildTwoComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
